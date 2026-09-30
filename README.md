@@ -1,6 +1,6 @@
-# Wireless Link Aware Adaptive Video Streaming for a Mowing Robot
+# Hierarchical Decision-Driven Adaptive Video Streaming over Dynamic Wireless Links
 
-Source attachment for the competition technical report. This ROS 2 package adapts camera-image resolution, target frame rate, and JPEG quality using local wireless-link measurements. It runs on the robot; a laptop connected to the same Wi-Fi network views the camera through `web_video_server`.
+Source repository accompanying the competition technical report. This ROS 2 package adapts camera-image resolution, target frame rate, and JPEG quality using local wireless-link measurements. It runs on the robot; a laptop connected to the same Wi-Fi network views the camera through `web_video_server`.
 
 The demonstrated platform is a remotely operated tracked mowing robot with an NVIDIA Jetson Orin Nano, a ZED 2i camera, and an Intel Wireless-AC 8265 adapter. Autonomous navigation is outside this streaming package.
 
@@ -22,7 +22,7 @@ adaptive_stream/
 
 `setup.py` registers both node executables. `setup.cfg` places them in the ROS 2 package executable directory. The resource marker registers the package with the ament index. No separate launch or YAML file is required for the four-terminal procedure below: the profiles and confirmation thresholds are defined in the Python nodes.
 
-The attachment includes the two application nodes and their installation metadata. ROS 2, the ZED SDK, the ZED ROS 2 wrapper, and `web_video_server` are external dependencies; the complete robot workspace is not required as part of this archive.
+The repository includes the two application nodes and their installation metadata. ROS 2, the ZED SDK, the ZED ROS 2 wrapper, and `web_video_server` are external dependencies; the complete robot workspace is not required as part of this repository.
 
 ## 2. Environment and dependencies
 
@@ -33,7 +33,7 @@ Before installation, configure the ROS 2 Humble package repository and source `/
 ```bash
 sudo apt update
 sudo apt install python3-colcon-common-extensions python3-rosdep \
-    python3-opencv iw unzip
+    python3-opencv iw git
 ```
 
 If rosdep has never been initialized on this machine, run `sudo rosdep init` once. Then run:
@@ -58,11 +58,12 @@ Upstream installation references:
 
 ## 3. Install and build the package
 
-Extract this archive so that `package.xml` is at `~/wheeltec_ros2/src/adaptive_stream/package.xml`. If an older copy of this package exists in that workspace, use one copy only. Replace the archive path below with its location on the Jetson:
+Clone this repository into `~/wheeltec_ros2/src/adaptive_stream` so that `package.xml` is at `~/wheeltec_ros2/src/adaptive_stream/package.xml`. If a copy of this package already exists in that workspace, use that copy or move it aside before cloning; keep only one copy in the workspace.
 
 ```bash
 mkdir -p ~/wheeltec_ros2/src
-unzip /path/to/adaptive_stream_submission_checked.zip -d ~/wheeltec_ros2/src
+git clone https://github.com/mengshaojun038-code/wireless-link-aware-adaptive-streaming.git \
+    ~/wheeltec_ros2/src/adaptive_stream
 
 cd ~/wheeltec_ros2
 source /opt/ros/humble/setup.bash
@@ -74,7 +75,7 @@ source install/setup.bash
 ros2 pkg executables adaptive_stream
 ```
 
-The final command should list `adaptive_stream_node` and `network_monitor_node` under the `adaptive_stream` package. The folder name of an archive is not the ROS package name; ROS commands use the name declared in `package.xml`.
+The final command should list `adaptive_stream_node` and `network_monitor_node` under the `adaptive_stream` package. ROS commands use the package name declared in `package.xml`: `adaptive_stream`.
 
 ## 4. Architecture and interfaces
 
@@ -251,4 +252,4 @@ Accepted values are lowercase `high`, `medium`, and `low`. Restart the network m
 
 ## 8. Submission scope
 
-The two node source files in this archive are preserved from the supplied implementation. This packaged copy adds complete installation and viewing instructions and declares the `iw` runtime dependency. It contains no generated build directories, Python caches, or unused development backups. The accompanying technical report provides the outdoor evaluation, figures, and literature comparison.
+The repository contains the two implemented nodes, complete installation and viewing instructions, and the declared `iw` runtime dependency. It contains no generated build directories, Python caches, or unused development backups. The accompanying technical report provides the outdoor evaluation, figures, and literature comparison.
