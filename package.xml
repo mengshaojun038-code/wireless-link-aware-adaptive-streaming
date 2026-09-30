@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd"
+             schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<package format="3">
+
+  <name>adaptive_stream</name>
+  <version>1.0.0</version>
+
+  <description>
+    ROS 2 network-aware adaptive visual streaming package for mobile robot
+    remote monitoring. The package dynamically switches image resolution,
+    frame rate, and JPEG quality according to wireless link conditions.
+  </description>
+
+  <maintainer email="mengshaojun038@gmail.com">Competition Submission</maintainer>
+
+  <license>Proprietary</license>
+
+  <depend>rclpy</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>rcl_interfaces</depend>
+  <depend>cv_bridge</depend>
+
+  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>iw</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+
+</package>
